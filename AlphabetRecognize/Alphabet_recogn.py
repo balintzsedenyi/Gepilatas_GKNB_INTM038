@@ -3,7 +3,6 @@ import numpy as np
 from keras.models import load_model
 import sys,getopt
 
-
 argv=sys.argv[1:]
 inputfile=''
 try:
@@ -17,13 +16,16 @@ for opt, arg in opts:
         sys.exit()
     elif opt in ("-i", "--ifile"):
         inputfile = arg
-print('Number of arguments: {}'.format(len(sys.argv)))
-print('Argument(s) passed: {}'.format(str(sys.argv)))
 
-
-model = load_model('model.h5')
+model = load_model('mymodel.h5')
 #model.summary()
-alph_dict = {0:'A',1:'B',2:'C',3:'D',4:'E',5:'F',6:'G',7:'H',8:'I',9:'J',10:'K',11:'L',12:'M',13:'N',14:'O',15:'P',16:'Q',17:'R',18:'S',19:'T',20:'U',21:'V',22:'W',23:'X', 24:'Y',25:'Z'}
+alph_dict = {0:'0',1:'1',2:'2',3:'3',4:'4',5:'5',6:'6',7:'7',8:'8',9:'9',
+             10:'a',11:'b',12:'c',13:'d',14:'e',15:'f',16:'g',17:'h',18:'i',19:'j',
+             20:'k',21:'l',22:'m',23:'n',24:'o',25:'p',26:'q',27:'r',28:'s',29:'t',
+             30:'u',31:'v',32:'w',33:'x',34:'y',35:'z',36:'A',37:'B',38:'C',39:'D',
+             40:'E',41:'F',42:'G',43:'H',44:'I',45:'J',46:'K',47:'L',48:'M',49:'N',
+             50:'O',51:'P',52:'Q',53:'R',54:'S',55:'T',56:'U',57:'V',58:'W',59:'X',
+             60:'Y',61:'Z'}
 img= cv2.imread(inputfile)
 img_copy =img.copy()
 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -31,10 +33,12 @@ img = cv2.resize(img, (400,400))
 img_copy = cv2.GaussianBlur(img_copy, (7,7), 0)
 img_gray = cv2.cvtColor(img_copy, cv2.COLOR_BGR2GRAY)
 _, img_thresh = cv2.threshold(img_gray, 100, 255, cv2.THRESH_BINARY_INV)
-img_final = cv2.resize(img_thresh, (28,28))
-img_final =np.reshape(img_final, (1,28,28,1))
+img_final = cv2.resize(img_thresh, (128,128))
+img_final =np.reshape(img_final, (1,128,128,1))
 img_pred = alph_dict[np.argmax(model.predict(img_final))]
-cv2.putText(img, "Tipp: " + img_pred, (20,380),cv2.FONT_HERSHEY_SIMPLEX, 1.3, color = (255,0,255))
+print('Number of arguments: {}'.format(len(sys.argv)))
+print('Argument(s) passed: {}'.format(str(sys.argv)))
+cv2.putText(img, "Tipp: " + img_pred, (20,380),cv2.FONT_HERSHEY_DUPLEX, 1.3, color = (255,0,0))
 cv2.imshow('Handwritten character recognition', img)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
