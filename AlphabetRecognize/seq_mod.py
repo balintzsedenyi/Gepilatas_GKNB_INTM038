@@ -17,8 +17,8 @@ from tensorflow.keras.layers import Dense, Flatten, Conv2D, MaxPool2D, Rescaling
 
 IMG_WIDTH=24
 IMG_HEIGHT=24
-DATA_DIR=r"D:\School things\DigitalVision\trainset1\Szamok"
-NUM_CLASSES = 10
+DATA_DIR=r"D:\School things\DigitalVision\trainset"
+NUM_CLASSES = 62
 
 trainset=tf.keras.utils.image_dataset_from_directory(
     DATA_DIR,

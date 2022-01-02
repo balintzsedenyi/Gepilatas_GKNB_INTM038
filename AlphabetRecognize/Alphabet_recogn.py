@@ -17,7 +17,7 @@ for opt, arg in opts:
     elif opt in ("-i", "--infile"):
         inputfile = arg
 
-model = load_model('98numbonly.h5')
+model = load_model('82model.h5')
 #model.summary()
 alph_dict = {0:'0',1:'1',2:'2',3:'3',4:'4',5:'5',6:'6',7:'7',8:'8',9:'9',
              10:'a',11:'b',12:'c',13:'d',14:'e',15:'f',16:'g',17:'h',18:'i',19:'j',
@@ -45,5 +45,3 @@ cv2.putText(img, "Tipp: " + img_pred, (20,370),cv2.FONT_HERSHEY_TRIPLEX, 1.3, co
 cv2.imshow('Handwritten character recognition', img)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
-
-#python Alphabet_recogn.py -i "D:\School things\DigitalVision\trainset\3\train_33_01920.png"
